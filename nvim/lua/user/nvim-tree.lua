@@ -37,11 +37,7 @@ nvim_tree.setup {
   disable_netrw = true,
   hijack_netrw = true,
   open_on_setup = false,
-  ignore_ft_on_setup = {
-    "startify",
-    "dashboard",
-    "alpha",
-  },
+  ignore_ft_on_setup = {},
   auto_close = true,
   open_on_tab = false,
   hijack_cursor = false,
@@ -64,6 +60,14 @@ nvim_tree.setup {
     update_cwd = true,
     ignore_list = {},
   },
+  system_open = {
+    cmd = nil,
+    args = {},
+  },
+  filters = {
+    dotfiles = false,
+    custom = {},
+  },
   git = {
     enable = true,
     ignore = true,
@@ -85,6 +89,10 @@ nvim_tree.setup {
     },
     number = false,
     relativenumber = false,
+  },
+  trash = {
+    cmd = "trash",
+    require_confirm = true,
   },
   quit_on_open = 0,
   git_hl = 1,
