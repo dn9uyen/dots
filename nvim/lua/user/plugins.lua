@@ -52,6 +52,7 @@ return packer.startup(function(use)
     use "lewis6991/impatient.nvim"
     use "lukas-reineke/indent-blankline.nvim"
     use "folke/which-key.nvim"
+    use "chriskempson/base16-vim"
 
     -- cmp plugins
     use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -73,8 +74,11 @@ return packer.startup(function(use)
     use "p00f/nvim-ts-rainbow"
   
     -- Git
-    use "lewis6991/gitsigns.nvim"
-  
+    use {
+        'lewis6991/gitsigns.nvim',
+        requires = { 'nvim-lua/plenary.nvim' },
+    }
+ 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
