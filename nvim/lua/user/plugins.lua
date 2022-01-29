@@ -41,44 +41,42 @@ packer.init {
 -- Install your plugins here
 return packer.startup(function(use)
     -- misc
-    use "wbthomason/packer.nvim" -- Have packer manage itself
     use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
-    use "numToStr/Comment.nvim" -- Easily comment stuff
-    use "kyazdani42/nvim-web-devicons"
-    use "kyazdani42/nvim-tree.lua"
-    use "akinsho/bufferline.nvim"
+    use "chriskempson/base16-vim"
     use "moll/vim-bbye"
-    use "nvim-lualine/lualine.nvim"
+    use "akinsho/bufferline.nvim"
+    use "numToStr/Comment.nvim" -- Easily comment stuff
+    use "lewis6991/gitsigns.nvim"
     use "lewis6991/impatient.nvim"
     use "lukas-reineke/indent-blankline.nvim"
+    use "nvim-lualine/lualine.nvim"
+    use "kyazdani42/nvim-tree.lua"
+    use "p00f/nvim-ts-rainbow"
+    use "kyazdani42/nvim-web-devicons"
+    use "wbthomason/packer.nvim" -- Have packer manage itself
+    use "nvim-lua/plenary.nvim"
     use "folke/which-key.nvim"
-    use "chriskempson/base16-vim"
 
     -- cmp plugins
-    use "hrsh7th/nvim-cmp" -- The completion plugin
     use "hrsh7th/cmp-buffer" -- buffer completions
-    use "hrsh7th/cmp-path" -- path completions
     use "hrsh7th/cmp-cmdline" -- cmdline completions
     use "saadparwaiz1/cmp_luasnip" -- snippet completions
     use "hrsh7th/cmp-nvim-lsp"
-  
-    -- snippets
-    use "L3MON4D3/LuaSnip" --snippet engine
+    use "hrsh7th/cmp-path" -- path completions
+    use "hrsh7th/nvim-cmp" -- The completion plugin
     use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
+    use "L3MON4D3/LuaSnip" --snippet engine
+
+    -- lsp
+    use "neovim/nvim-lspconfig"
+    use "williamboman/nvim-lsp-installer"
   
     -- Treesitter
     use {
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
     }
-    use "p00f/nvim-ts-rainbow"
   
-    -- Git
-    use {
-        'lewis6991/gitsigns.nvim',
-        requires = { 'nvim-lua/plenary.nvim' },
-    }
- 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
