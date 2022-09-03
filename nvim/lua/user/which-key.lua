@@ -1,9 +1,9 @@
-local status_ok, whichkey = pcall(require, "which-key")
+local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
-  return
+    return
 end
 
-whichkey.setup {
+which_key.setup {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
     registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -68,3 +68,33 @@ whichkey.setup {
     v = { "j", "k" },
   },
 }
+
+which_key.register({
+    -- Misc
+    ["<leader>e"] = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show Error" },
+    ["<leader>h"] = { "<cmd>nohlsearch<CR>", "Clear Highlights" },
+    ["<leader>t"] = { "<cmd>NvimTreeToggle<<CR>", "Toggle Tree" },
+
+    -- Telescope and files
+    ["<leader>f"] = { name = "+file" },
+    ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
+    --[[ ["<leader>fr"] = { "<cmd>oldfiles<cr>", "Open Recent File" }, ]]
+    ["<leader>fn"] = { "<cmd>Telescope enew<cr>", "New File" },
+    ["<leader>ft"] = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
+    ["<leader>fa"] = { "<cmd>vim.lsp.buf.add_workspace_folder<cr>", "Add folder" },
+    ["<leader>fr"] = { "<cmd>vim.lsp.buf.remove_workspace_folder<cr>", "Remove folder" },
+    ["<leader>fl"] = { "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders())<cr>", "List folders" },
+
+    -- Dap
+    ["<leader>d"] = { name = "Dap" },
+    ["<leader>db"] = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+    ["<leader>dc"] = { "<cmd>require'dap'.continue()<cr>", "Continue" },
+    ["<leader>di"] = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+    ["<leader>do"] = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
+    ["<leader>dO"] = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+    ["<leader>dr"] = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+    ["<leader>dl"] = { "<cmd>lua require'dap'.run_last()<cr>", "Run Last" },
+    ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<cr>", "Toggle Ui" },
+    ["<leader>dt"] = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate Debug" },
+
+})
