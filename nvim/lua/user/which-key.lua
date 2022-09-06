@@ -73,7 +73,7 @@ which_key.register({
     -- Misc
     ["<leader>e"] = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show Error" },
     ["<leader>h"] = { "<cmd>nohlsearch<CR>", "Clear Highlights" },
-    ["<leader>t"] = { "<cmd>NvimTreeToggle<<CR>", "Toggle Tree" },
+    ["<leader>t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Tree" },
 
     -- Telescope and files
     ["<leader>f"] = { name = "+file" },
