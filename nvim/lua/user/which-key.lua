@@ -88,7 +88,7 @@ which_key.register({
     -- Dap
     ["<leader>d"] = { name = "Dap" },
     ["<leader>db"] = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
-    ["<leader>dc"] = { "<cmd>require'dap'.continue()<cr>", "Continue" },
+    ["<leader>dc"] = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
     ["<leader>di"] = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
     ["<leader>do"] = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
     ["<leader>dO"] = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
