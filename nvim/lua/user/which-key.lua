@@ -74,7 +74,14 @@ which_key.register({
     ["<leader>e"] = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show Error" },
     ["<leader>h"] = { "<cmd>nohlsearch<CR>", "Clear Highlights" },
     ["<leader>t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Tree" },
+    ["<leader>rn"] = { "<cmd>lua vim.lsp.buf.rename<CR>", "Rename"},
 
+    -- Lsp
+    ["<leader>e"] = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show Error" },
+    ["gd"] = { "<cmd>lua vim.lsp.buf.definition<CR>", "Show Definition" },
+    ["gD"] = { "<cmd>lua vim.lsp.buf.declaration<CR>", "Show Declaration" },
+
+    
     -- Telescope and files
     ["<leader>f"] = { name = "+file" },
     ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find File" },
