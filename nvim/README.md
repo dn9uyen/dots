@@ -1,5 +1,6 @@
 todo:
 - Auto install debuggers
+- Clean up keybindings and put into which-key
 
 notes:
 - add more lsp servers in lsp/lspconfig.lua

@@ -23,3 +23,4 @@ require "user.which-key"
 require "user.mason"
 require "user.lsp"
 
+require "user.r"

@@ -36,6 +36,10 @@ packer.init {
       return require("packer.util").float { border = "rounded" }
     end,
   },
+  profile = {
+    enable = true,
+    threshold = 0, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+  },
 }
 
 -- Install your plugins here
@@ -54,6 +58,7 @@ return packer.startup(function(use)
   use { "lewis6991/impatient.nvim" }
   use { "lukas-reineke/indent-blankline.nvim" }
   use { "folke/which-key.nvim" }
+  use { "dstein64/vim-startuptime" }
 
   -- Colorschemes
   use { "lunarvim/darkplus.nvim" }
@@ -84,6 +89,7 @@ return packer.startup(function(use)
 
   -- Treesitter
   use { "nvim-treesitter/nvim-treesitter" }
+  use { "p00f/nvim-ts-rainbow"}
 
   -- Git
   use { "lewis6991/gitsigns.nvim" }
@@ -91,6 +97,9 @@ return packer.startup(function(use)
   -- DAP
   use { "mfussenegger/nvim-dap" }
   use { "rcarriga/nvim-dap-ui" }
+
+  -- R language
+  use { "jamespeapen/Nvim-R" }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

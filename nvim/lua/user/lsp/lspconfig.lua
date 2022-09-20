@@ -69,7 +69,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+    vim.keymap.set('n', '<space>f', vim.lsp.buf.format, bufopts)
 end
 
 local lsp_flags = {
@@ -84,7 +84,7 @@ capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
 
 -- Add more servers here
-local servers = { 'clangd', 'pyright' }
+local servers = { 'clangd', 'pyright', 'r_language_server' }
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
         on_attach = on_attach,
