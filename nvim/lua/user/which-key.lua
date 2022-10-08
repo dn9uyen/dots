@@ -75,6 +75,8 @@ which_key.register({
     ["<leader>t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle Tree" },
     ["<leader>rn"] = { "<cmd>lua vim.lsp.buf.rename<CR>", "Rename" },
     ["<leader>gg"] = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazy Git" },
+    ["<leader>ca"] = { "<cmd>vim.lsp.buf.code_action<CR>", "Code Action" },
+    ["<leader>cf"] = { "<cmd>vim.lsp.buf.format<CR>", "Format" },
 
     -- Lsp
     ["<leader>e"] = { "<cmd>lua vim.diagnostic.open_float()<CR>", "Show Error" },
