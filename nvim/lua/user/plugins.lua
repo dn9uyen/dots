@@ -43,11 +43,13 @@ return packer.startup(function(use)
     use { "wbthomason/packer.nvim" } -- Have packer manage itself
     use { "lewis6991/impatient.nvim" }
     use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
-    use { "windwp/nvim-autopairs", config = "user.autopairs", event = "InsertEnter" } -- Autopairs, integrates with both cmp and treesitter
+    use { "windwp/nvim-autopairs", -- Autopairs, integrates with both cmp and treesitter
+        config = function() require "user.autopairs" end, event = "InsertEnter"
+    }
     use { "numToStr/Comment.nvim", config = function() require "user.comment" end }
     use { "JoosepAlviste/nvim-ts-context-commentstring" }
     use { "kyazdani42/nvim-web-devicons" }
-    use { "kyazdani42/nvim-tree.lua", config = function() require "user.nvim-tree" end, event = "BufEnter" }
+    use { "kyazdani42/nvim-tree.lua", config = function() require "user.nvim-tree" end, cmd = {"NvimTreeToggle"} }
     use { "akinsho/bufferline.nvim", config = function() require "user.bufferline" end, event = "BufEnter" }
     use { "moll/vim-bbye" }
     use { "nvim-lualine/lualine.nvim", config = function() require "user.lualine" end }
@@ -70,7 +72,7 @@ return packer.startup(function(use)
             { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
             { "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
 	    },
-        config = "user.cmp"
+        config = function() require "user.cmp" end
     }
 
     -- snippets
@@ -87,7 +89,7 @@ return packer.startup(function(use)
     use { "RRethy/vim-illuminate", config = function() require "user.illuminate" end }
 
     -- Telescope
-    use { "nvim-telescope/telescope.nvim", config = function() require "user.telescope" end }
+    use { "nvim-telescope/telescope.nvim", config = function() require "user.telescope" end, cmd = {"Telescope"} }
 
     -- Treesitter
     use { "nvim-treesitter/nvim-treesitter", config = function() require "user.treesitter" end }
@@ -97,8 +99,8 @@ return packer.startup(function(use)
     use { "lewis6991/gitsigns.nvim", config = function() require "user.gitsigns" end }
 
     -- DAP
-    use { "mfussenegger/nvim-dap", config = "user.dap", after = "nvim-cmp" }
-    use { "rcarriga/nvim-dap-ui", config = "user.dap.ui", after = "nvim-dap" }
+    use { "mfussenegger/nvim-dap", config = function() require "user.dap" end }
+    use { "rcarriga/nvim-dap-ui", after = "nvim-dap" }
 
     -- R language
     use { "jamespeapen/Nvim-R" }
