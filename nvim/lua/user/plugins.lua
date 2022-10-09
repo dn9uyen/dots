@@ -36,67 +36,69 @@ packer.init {
             return require("packer.util").float { border = "rounded" }
         end,
     },
-    profile = {
-        enable = true,
-        threshold = 0, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
-    },
 }
 
 -- Install your plugins here
 return packer.startup(function(use)
     use { "wbthomason/packer.nvim" } -- Have packer manage itself
+    use { "lewis6991/impatient.nvim" }
     use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
-    use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
-    use { "numToStr/Comment.nvim" }
+    use { "windwp/nvim-autopairs", config = "user.autopairs", event = "InsertEnter" } -- Autopairs, integrates with both cmp and treesitter
+    use { "numToStr/Comment.nvim", config = function() require "user.comment" end }
     use { "JoosepAlviste/nvim-ts-context-commentstring" }
     use { "kyazdani42/nvim-web-devicons" }
-    use { "kyazdani42/nvim-tree.lua" }
-    use { "akinsho/bufferline.nvim" }
+    use { "kyazdani42/nvim-tree.lua", config = function() require "user.nvim-tree" end, event = "BufEnter" }
+    use { "akinsho/bufferline.nvim", config = function() require "user.bufferline" end, event = "BufEnter" }
     use { "moll/vim-bbye" }
-    use { "nvim-lualine/lualine.nvim" }
-    use { "akinsho/toggleterm.nvim" }
-    use { "lewis6991/impatient.nvim" }
-    use { "lukas-reineke/indent-blankline.nvim" }
-    use { "folke/which-key.nvim" }
+    use { "nvim-lualine/lualine.nvim", config = function() require "user.lualine" end }
+    use { "akinsho/toggleterm.nvim", config = function() require "user.toggleterm" end }
+    use { "lukas-reineke/indent-blankline.nvim", config = function() require "user.indentline" end }
+    use { "folke/which-key.nvim", config = function() require "user.which-key" end }
     use { "dstein64/vim-startuptime" }
 
     -- Colorschemes
     use { "lunarvim/darkplus.nvim" }
+    pcall(vim.cmd, "colorscheme " .. "darkplus")
 
     -- cmp plugins
-    use { "hrsh7th/nvim-cmp" } -- The completion plugin
-    use { "hrsh7th/cmp-buffer" } -- buffer completions
-    use { "hrsh7th/cmp-path" } -- path completions
-    use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
-    use { "hrsh7th/cmp-nvim-lsp" }
-    use { "hrsh7th/cmp-nvim-lua" }
+    use { "hrsh7th/nvim-cmp", -- Completion plugin
+        event = "InsertEnter",
+        requires = {
+            { "hrsh7th/cmp-buffer", after = "nvim-cmp" }, -- buffer completions
+            { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }, -- path completions
+            { "hrsh7th/cmp-path", after = "nvim-cmp" }, -- snippet completions
+            { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+            { "saadparwaiz1/cmp_luasnip", after = "LuaSnip" },
+	    },
+        config = "user.cmp"
+    }
 
     -- snippets
-    use { "L3MON4D3/LuaSnip" } --snippet engine
+    use { "L3MON4D3/LuaSnip", after = "nvim-cmp" } --snippet engine
     use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
 
     -- Mason
-    use { "williamboman/mason.nvim" } -- Manage lsp, formatter, and dap
+    use { "williamboman/mason.nvim", config = function() require "user.mason" end } -- Manage lsp, formatter, and dap
     use { "williamboman/mason-lspconfig.nvim" }
 
     -- LSP
-    use { "neovim/nvim-lspconfig" } -- enable LSP
-    use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
-    use { "RRethy/vim-illuminate" }
+    use { "neovim/nvim-lspconfig", config = function() require "user.lsp" end} -- enable LSP
+    use { "jose-elias-alvarez/null-ls.nvim", after = "nvim-lspconfig" } -- for formatters and linters
+    use { "RRethy/vim-illuminate", config = function() require "user.illuminate" end }
 
     -- Telescope
-    use { "nvim-telescope/telescope.nvim" }
+    use { "nvim-telescope/telescope.nvim", config = function() require "user.telescope" end }
 
     -- Treesitter
-    use { "nvim-treesitter/nvim-treesitter" }
+    use { "nvim-treesitter/nvim-treesitter", config = function() require "user.treesitter" end }
     use { "p00f/nvim-ts-rainbow" }
 
     -- Git
-    use { "lewis6991/gitsigns.nvim" }
+    use { "lewis6991/gitsigns.nvim", config = function() require "user.gitsigns" end }
 
     -- DAP
-    use { "mfussenegger/nvim-dap" }
-    use { "rcarriga/nvim-dap-ui" }
+    use { "mfussenegger/nvim-dap", config = "user.dap", after = "nvim-cmp" }
+    use { "rcarriga/nvim-dap-ui", config = "user.dap.ui", after = "nvim-dap" }
 
     -- R language
     use { "jamespeapen/Nvim-R" }

@@ -1,11 +1,7 @@
-local M = {}
-
 local dap_status_ok, dap = pcall(require, "dap")
 if not dap_status_ok then
   return
 end
-
-M.setup = function()
 
 -- Autostart codelldb
 local codelldb_path = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb"
@@ -88,7 +84,3 @@ dap.configurations.cpp = {
 }
 
 dap.configurations.c = dap.configurations.cpp
-
-end
-
-return M
