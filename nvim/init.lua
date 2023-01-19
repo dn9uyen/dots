@@ -12,9 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
+require("options") -- load lua/options.lua
 
 local status, lazy = pcall(require, "lazy")
 if not status then return end
 
-lazy.setup("plugins")
+lazy.setup("plugins") -- load all files in lua/plugins
