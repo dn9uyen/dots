@@ -7,10 +7,13 @@ return {
     config = function()
         require("telescope").setup()
 
-        local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-        vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-        vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-        vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        local wk = require("which-key")
+        wk.register({
+            ["<leader>f"] = { name = "+telescope" },
+            ["<leader>ff"] = { require('telescope.builtin').find_files, "Find File" },
+            ["<leader>fg"] = { require('telescope.builtin').live_grep, "Live Grep" },
+            ["<leader>fb"] = { require('telescope.builtin').buffers, "Find in Buffers" },
+            ["<leader>fh"] = { require('telescope.builtin').help_tags, "Help Tags" },
+        })
     end,
 }

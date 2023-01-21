@@ -17,11 +17,13 @@ return {
         config = function()
             -- Mappings.
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-            local opts = { noremap=true, silent=true }
-            vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-            vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-            vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-            vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+            local wk = require("which-key")
+            wk.register({
+                ["<leader>e"] = { vim.diagnostic.open_float, "Float Diagnostic" },
+                ["<leader>q"] = { vim.diagnostic.setloclist, "Window Diagnostic" },
+                ["[d"] = { vim.diagnostic.goto_prev, "Previous Diagnostic" },
+                ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
+            })
 
             -- Use an on_attach function to only map the following keys
             -- after the language server attaches to the current buffer
@@ -31,22 +33,22 @@ return {
 
                 -- Mappings.
                 -- See `:help vim.lsp.*` for documentation on any of the below functions
-                local bufopts = { noremap=true, silent=true, buffer=bufnr }
-                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-                vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-                vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-                vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-                vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-                vim.keymap.set('n', '<space>wl', function()
-                  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                end, bufopts)
-                vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-                vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-                vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-                vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-                vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+                wk.register({
+                    ["gD"] = { vim.lsp.buf.declaration, "Go to Declaration" },
+                    ["gd"] = { vim.lsp.buf.definition, "Go to Definition" },
+                    ["K"] = { vim.lsp.buf.hover, "View Information" },
+                    ["gi"] = { vim.lsp.buf.implementation, "Go to Implementation" },
+                    ["C-k"] = { vim.lsp.buf.signature_help, "Signature Help" },
+                    ["<space>wa"] = { vim.lsp.buf.add_workspace_folder, "Add Workspace Folder" },
+                    ["<space>wr"] = { vim.lsp.buf.remove_workspace_folder, "Remove Workspace Folder" },
+                    ["<space>wl"] = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List Workspace Folders" },
+                    ["<space>D"] = { vim.lsp.buf.type_definition, "View Type Definition" },
+                    ["<space>rn"] = { vim.lsp.buf.rename, "Rename" },
+                    ["<space>c"] = { name = "+code" },
+                    ["<space>ca"] = { vim.lsp.buf.code_action, "Code Action" },
+                    ["<space>cf"] = { vim.lsp.buf.format, "Format Code" },
+                    ["gr"] = { vim.lsp.buf.references, "View References" },
+                })
             end
 
             local lsp_flags = {
@@ -56,19 +58,19 @@ return {
 
             local lsp = require("lspconfig")
 
-            lsp.sumneko_lua.setup{
+            lsp.sumneko_lua.setup {
                 on_attach = on_attach,
                 flags = lsp_flags,
                 settings = {
                     Lua = {
                         diagnostics = {
-                            globals = {"vim"},
+                            globals = { "vim" },
                         },
                     },
                 },
             }
 
-            lsp.clangd.setup{
+            lsp.clangd.setup {
                 on_attach = on_attach,
                 flags = lsp_flags,
             }
