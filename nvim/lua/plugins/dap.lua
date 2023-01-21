@@ -18,7 +18,6 @@ return {
                 executable = {
                     command = vim.fn.stdpath("data") .. "/mason/packages/codelldb/extension/adapter/codelldb",
                     args = { "--port", "${port}" },
-
                     -- On windows you may have to uncomment this:
                     -- detached = false,
                 }

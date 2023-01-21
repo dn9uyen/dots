@@ -13,6 +13,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("options") -- load lua/options.lua
+require("misc") -- load lua/misc.lua
 
 local status, lazy = pcall(require, "lazy")
 if not status then return end
