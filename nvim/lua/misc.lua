@@ -1,21 +1,13 @@
--- Shorten function name
+-- Diagnostic icons
+vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+
 local keymap = vim.keymap.set
--- Silent keymap option
 local opts = { silent = true }
 
---Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
-
--- Normal --
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
@@ -33,7 +25,7 @@ keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- Close buffers
-keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
+keymap("n", "<S-w>", "<cmd>Bdelete!<CR>", opts)
 
 -- Better paste
 keymap("v", "p", '"_dP', opts)
