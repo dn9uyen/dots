@@ -24,5 +24,5 @@ return {
         require("gruvbox").setup(opts)
         vim.o.background = "dark"
         vim.cmd.colorscheme("gruvbox")
-    end,
+            end,
 }

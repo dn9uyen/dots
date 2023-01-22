@@ -1,6 +1,6 @@
 return {
     "windwp/nvim-autopairs",
-    requires = "hrsh7th/nvim-cmp",
+    dependencies = { "hrsh7th/nvim-cmp", },
     opts = {
         check_ts = true,
     }
