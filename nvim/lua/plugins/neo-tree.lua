@@ -21,6 +21,12 @@ return {
                     },
                 },
             },
+            default_component_configs = {
+                modified = {
+                    symbol = "",
+                    highlight = "NeoTreeModified",
+                },
+            },
             sources = {
                 "filesystem",
                 "buffers",
@@ -32,8 +38,7 @@ return {
             },
         })
 
-        vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#8ec07c", bg = "#1d2021" })
-        vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = "#cc241d", bg = "#1d2021" })
+
 
         local wk = require("which-key")
         wk.register({

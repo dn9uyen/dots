@@ -12,11 +12,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("options")
-require("misc")
-require("autocommands")
-
 local status, lazy = pcall(require, "lazy")
 if not status then return end
 
+require("options")
+
 lazy.setup("plugins") -- load all files in lua/plugins
+
+require("misc")
+require("autocommands")
+require("statuscolumn")
