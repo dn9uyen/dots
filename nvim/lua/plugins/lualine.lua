@@ -11,7 +11,7 @@ return {
                 statusline = { 'neo-tree' },
                 winbar = {},
             },
-            ignore_focus = {},
+            ignore_focus = {"toggleterm"},
             always_divide_middle = true,
             globalstatus = true,
             refresh = {
