@@ -1,4 +1,4 @@
--- Fix highlight background color
+-- Fix highlights
 vim.api.nvim_set_hl(0, "NeoTreeGitModified", { fg = "#8ec07c", bg = "NONE" })
 vim.api.nvim_set_hl(0, "NeoTreeGitDeleted", { fg = "#cc241d", bg = "NONE" })
 vim.api.nvim_set_hl(0, "DiagnosticSignError", { fg = "#cc241d", bg = "NONE" })
@@ -10,6 +10,7 @@ vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#8ec07c", bg = "NONE" })
 vim.api.nvim_set_hl(0, "GitSignsDelete", { fg = "#fb4934", bg = "NONE" })
 vim.api.nvim_set_hl(0, "GitSignsUntracked", { fg = "#b8bb26", bg = "NONE" })
 vim.api.nvim_set_hl(0, "CursorLineNR", { fg = "#fabd2f", bg = "NONE" })
+vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = "#8f8271", bg = "NONE" })
 
 -- Diagnostic icons
 vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })

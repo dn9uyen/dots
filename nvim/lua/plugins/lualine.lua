@@ -22,8 +22,8 @@ return {
         },
         sections = {
             lualine_a = { 'mode' },
-            lualine_b = { {'diagnostics', always_visible = true,}, },
-            lualine_c = { {'filename', path = 2}, },
+            lualine_b = {},
+            lualine_c = { { 'diagnostics', always_visible = true, }, { 'filename', path = 2 }, },
             lualine_x = { 'branch', 'diff', 'encoding', 'fileformat', 'filetype' },
             lualine_y = { 'progress' },
             lualine_z = { 'location' }
