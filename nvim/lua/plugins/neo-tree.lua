@@ -274,6 +274,5 @@ return {
       }
     })
 
-    vim.cmd([[nnoremap <silent> \ :Neotree toggle<cr>]])
   end,
 }
