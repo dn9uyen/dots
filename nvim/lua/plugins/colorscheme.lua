@@ -1,5 +1,5 @@
 return {
-    "sainnhe/gruvbox-material",
+    "dn9uyen/gruvbox-material",
     lazy = false,
     priority = 1000,
 

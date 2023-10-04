@@ -2,18 +2,33 @@ vim.g.mapleader = " "
 
 local map = vim.keymap.set
 
+-- Better indenting
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
+-- Buffer navigation
+map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
+
+-- Better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
 -- Better window navigation
 map("n", "<C-h>", "<C-w>h", { noremap = true, silent = false })
 map("n", "<C-j>", "<C-w>j", { noremap = true, silent = false })
 map("n", "<C-k>", "<C-w>k", { noremap = true, silent = false })
 map("n", "<C-l>", "<C-w>l", { noremap = true, silent = false })
 
+-- Terminal window navigation mappings
+map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
+map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
+map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
+map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
+
 -- Clear highlight with <esc>
 map("n", "<esc>", "<cmd>noh<cr><esc>", { noremap = true, silent = false })
-
--- Buffer navigation
-map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 
 -- neo-tree
 map("n", "\\", "<cmd>Neotree toggle<cr>", { noremap = true, silent = false })
@@ -38,7 +53,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('n', 'gd', vim.lsp.buf.definition, opts)
     map('n', 'K', vim.lsp.buf.hover, opts)
     map('n', 'gi', vim.lsp.buf.implementation, opts)
-    map('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    map('n', '<gk>', vim.lsp.buf.signature_help, opts)
     map('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
     map('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
     map('n', '<space>wl', function()
