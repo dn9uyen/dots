@@ -33,6 +33,12 @@ return {
         -- Setup language servers.
         lspconfig.clangd.setup {
             capabilities = capabilities,
+            cmd = {
+                "clangd",
+                "--clang-tidy",
+                "--fallback-style=LLVM",
+                "--function-arg-placeholders",
+            }
         }
         lspconfig.lua_ls.setup {
             capabilities = capabilities,
