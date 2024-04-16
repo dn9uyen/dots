@@ -1,7 +1,6 @@
 return {
     "neovim/nvim-lspconfig",
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
     },
@@ -9,10 +8,10 @@ return {
         local lspconfig = require('lspconfig')
         local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-        vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
-        vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
-        vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
-        vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
+        -- vim.fn.sign_define("DiagnosticSignError", { text = " ", texthl = "DiagnosticSignError" })
+        -- vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSignWarn" })
+        -- vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
+        -- vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
         vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
             vim.lsp.handlers.hover,
@@ -25,6 +24,8 @@ return {
         )
 
         vim.diagnostic.config({
+            virtual_text = false, -- conflicts with lsp_lines
+            virtual_lines = { only_current_line = true },
             float = {
                 border = 'rounded',
             },
@@ -51,5 +52,21 @@ return {
                 },
             },
         }
+        lspconfig.pyright.setup {
+            capabilities = capabilities,
+        }
+        -- lspconfig.basedpyright.setup {
+        --     capabilities = capabilities,
+        --     settings = {
+        --         basedpyright = {
+        --             analysis = {
+        --                 typeCheckingMode = "standard"
+        --             },
+        --         }
+        --     }
+        -- }
+        lspconfig.tsserver.setup { capabilities = capabilities, }
+        lspconfig.html.setup { capabilities = capabilities, }
+        lspconfig.cssls.setup { capabilities = capabilities, }
     end,
 }

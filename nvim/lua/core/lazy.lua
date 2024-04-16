@@ -17,5 +17,6 @@ if not status then return end
 
 lazy.setup({
     { import = "plugins" },
+    { import = "plugins.treesitter" },
     { import = "plugins.lsp" },
 })

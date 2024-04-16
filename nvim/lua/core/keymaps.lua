@@ -2,37 +2,6 @@ vim.g.mapleader = " "
 
 local map = vim.keymap.set
 
--- Better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
-
--- Buffer navigation
-map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-
--- Better up/down
-map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- Better window navigation
-map("n", "<C-h>", "<C-w>h", { noremap = true, silent = false })
-map("n", "<C-j>", "<C-w>j", { noremap = true, silent = false })
-map("n", "<C-k>", "<C-w>k", { noremap = true, silent = false })
-map("n", "<C-l>", "<C-w>l", { noremap = true, silent = false })
-
--- Terminal window navigation mappings
-map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
-map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
-map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
-map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
-map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
-
--- Clear highlight with <esc>
-map("n", "<esc>", "<cmd>noh<cr><esc>", { noremap = true, silent = false })
-
--- neo-tree
-map("n", "\\", "<cmd>Neotree toggle<cr>", { noremap = true, silent = false })
-
 -- Lsp
 map("n", '<space>e', vim.diagnostic.open_float, { noremap = true, silent = false })
 map("n", '[d', vim.diagnostic.goto_prev, { noremap = true, silent = false })
@@ -43,9 +12,6 @@ map("n", '<space>q', vim.diagnostic.setloclist, { noremap = true, silent = false
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
     callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
@@ -64,10 +30,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
         map({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
         map('n', 'gr', vim.lsp.buf.references, opts)
         map('n', '<space>f', function()
-            vim.lsp.buf.format { async = true }
+            local buf_clients = vim.lsp.buf_get_clients()
+            -- Check LSP clients that support formatting
+            for _, client in pairs(buf_clients) do
+                if client.supports_method('textDocument/formatting') then
+                    vim.lsp.buf.format { async = true }
+                    return
+                end
+            end
+            -- Fallback on conform
+            require('conform').format()
         end, opts)
     end,
 })
+
+-- Better indenting
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
+-- Better up/down
+map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+
+-- Better window navigation
+map("n", "<C-h>", "<C-w>h", { noremap = true, silent = false })
+map("n", "<C-j>", "<C-w>j", { noremap = true, silent = false })
+map("n", "<C-k>", "<C-w>k", { noremap = true, silent = false })
+map("n", "<C-l>", "<C-w>l", { noremap = true, silent = false })
+
+-- Clear highlight with <esc>
+map("n", "<esc>", "<cmd>noh<cr><esc>", { noremap = true, silent = false })
 
 -- Telescope
 map('n', '<leader>ff', "<cmd>Telescope find_files<cr>", {})
@@ -75,5 +67,5 @@ map('n', '<leader>fg', "<cmd>Telescope live_grep<cr>", {})
 map('n', '<leader>fb', "<cmd>Telescope buffers<cr>", {})
 map('n', '<leader>fh', "<cmd>Telescope help_tags<cr>", {})
 
--- Neogit
-map('n', '<leader>gg', "<cmd>Neogit<cr>", {})
+-- neo-tree
+map("n", "\\", "<cmd>Neotree toggle<cr>", { noremap = true, silent = false })
